@@ -8,6 +8,7 @@
         'security/ir.model.access.csv',
         'views/library_book_views.xml',
         'views/library_author_views.xml',
+        'views/library_loan_views.xml',
         'views/library_menu.xml',
     ],
     'installable': True,

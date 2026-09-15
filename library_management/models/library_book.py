@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class LibraryBook(models.Model):
     _name = 'library.book'
@@ -16,3 +17,24 @@ class LibraryBook(models.Model):
         ('borrowed', 'Emprunte'),
         ('lost', 'Perdu'),
     ], string='Etat', default='draft')
+    loan_ids = fields.One2many('library.loan', 'book_id', string='Emprunts')
+
+    @api.constrains('isbn')
+    def _check_isbn_length(self):
+        for book in self:
+            if book.isbn and len(book.isbn) != 13:
+                raise ValidationError("L'ISBN doit faire exactement 13 caracteres.")
+
+    @api.onchange('author_id')
+    def _onchange_author_id(self):
+        if self.author_id and not self.name:
+            self.name = "Nouveau livre de %s" % self.author_id.name
+
+    def action_borrow(self):
+        for book in self:
+            book.state = 'borrowed'
+            book.available = False
+            self.env['library.loan'].create({
+                'book_id': book.id,
+                'borrow_date': fields.Date.today(),
+            })
