@@ -1,5 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+<<<<<<< HEAD
 access_library_author,library.author,model_library_author,base.group_user,1,1,1,1
 access_library_book,library.book,model_library_book,base.group_user,1,1,1,1
 access_library_loan,library.loan,model_library_loan,base.group_user,1,1,1,1
 access_library_book_reader,library.book.reader,model_library_book,group_library_reader,1,0,0,0
+=======
+access_library_book_user,library.book.user,model_library_book,base.group_user,1,1,1,1
+access_library_author_user,library.author.user,model_library_author,base.group_user,1,1,1,1
+access_library_loan_user,library.loan.user,model_library_loan,base.group_user,1,1,1,1
+>>>>>>> 10ec73379cb3bfc326fd7c28c6c8901fbd86c5cf

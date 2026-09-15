@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<<<<<<< HEAD
 
     <record id="view_library_author_form" model="ir.ui.view">
         <field name="name">library.author.form</field>
@@ -19,10 +20,43 @@
                             <field name="book_ids"/>
                         </page>
                     </notebook>
+=======
+    <record id="view_library_book_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list string="Livres">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="author_id"/>
+                <field name="isbn"/>
+                <field name="publication_date"/>
+                <field name="state"/>
+                <field name="available"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Livre">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="author"/>
+                        <field name="author_id"/>
+                        <field name="isbn"/>
+                        <field name="publication_date"/>
+                        <field name="state"/>
+                        <field name="available"/>
+                    </group>
+>>>>>>> 10ec73379cb3bfc326fd7c28c6c8901fbd86c5cf
                 </sheet>
             </form>
         </field>
     </record>
+<<<<<<< HEAD
 
     <record id="view_library_author_tree" model="ir.ui.view">
         <field name="name">library.author.tree</field>
@@ -42,3 +76,11 @@
     </record>
 
 </odoo>
+=======
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Livres</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+>>>>>>> 10ec73379cb3bfc326fd7c28c6c8901fbd86c5cf

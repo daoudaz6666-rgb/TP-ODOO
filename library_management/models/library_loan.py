@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from odoo import models, fields, api
 
 class LibraryLoan(models.Model):
@@ -42,3 +43,15 @@ class LibraryLoan(models.Model):
         for loan in overdue_loans:
             template.send_mail(loan.id, force_send=True)
             loan.message_post(body="Email de rappel envoye pour retard.")
+=======
+from odoo import models, fields
+
+class LibraryLoan(models.Model):
+    _name = 'library.loan'
+    _description = 'Emprunt de livre'
+
+    book_id = fields.Many2one('library.book', string='Livre', required=True)
+    partner_id = fields.Many2one('res.partner', string='Emprunteur')
+    borrow_date = fields.Date(string='Date d\'emprunt', default=fields.Date.today)
+    return_date = fields.Date(string='Date de retour prevue')
+>>>>>>> 10ec73379cb3bfc326fd7c28c6c8901fbd86c5cf
