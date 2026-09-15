@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-from odoo import models, fields, api
+﻿from odoo import models, fields, api
 
 class LibraryLoan(models.Model):
     _name = 'library.loan'
@@ -8,7 +7,8 @@ class LibraryLoan(models.Model):
 
     book_id = fields.Many2one('library.book', string='Livre', required=True)
     author_id = fields.Many2one(related='book_id.author_id', string='Auteur', store=True, readonly=True)
-    borrower = fields.Char(string='Emprunteur', required=True)
+    partner_id = fields.Many2one('res.partner', string='Emprunteur', required=True)
+    borrow_date = fields.Date(string="Date d'emprunt", default=fields.Date.context_today)
     loan_date = fields.Date(string="Date d'emprunt", default=fields.Date.context_today)
     return_date = fields.Date(string='Date de retour prevue')
     state = fields.Selection([
@@ -40,18 +40,7 @@ class LibraryLoan(models.Model):
             ('return_date', '<', today),
         ])
         template = self.env.ref('library_management.mail_template_loan_reminder')
+
         for loan in overdue_loans:
             template.send_mail(loan.id, force_send=True)
             loan.message_post(body="Email de rappel envoye pour retard.")
-=======
-from odoo import models, fields
-
-class LibraryLoan(models.Model):
-    _name = 'library.loan'
-    _description = 'Emprunt de livre'
-
-    book_id = fields.Many2one('library.book', string='Livre', required=True)
-    partner_id = fields.Many2one('res.partner', string='Emprunteur')
-    borrow_date = fields.Date(string='Date d\'emprunt', default=fields.Date.today)
-    return_date = fields.Date(string='Date de retour prevue')
->>>>>>> 10ec73379cb3bfc326fd7c28c6c8901fbd86c5cf
