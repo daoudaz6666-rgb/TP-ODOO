@@ -18,6 +18,18 @@ class LibraryBook(models.Model):
         ('lost', 'Perdu'),
     ], string='Etat', default='draft')
     loan_ids = fields.One2many('library.loan', 'book_id', string='Emprunts')
+    is_overdue = fields.Boolean(string='En retard', compute='_compute_is_overdue')
+
+    @api.depends('state', 'loan_ids.return_date')
+    def _compute_is_overdue(self):
+        today = fields.Date.today()
+        for book in self:
+            book.is_overdue = False
+            if book.state == 'borrowed':
+                for loan in book.loan_ids:
+                    if loan.return_date and loan.return_date < today:
+                        book.is_overdue = True
+                        break
 
     @api.constrains('isbn')
     def _check_isbn_length(self):
